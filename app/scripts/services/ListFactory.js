@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name topAlbumsApp.services:getList
+ * @name topAlbumsApp.services:ListFactory
  * @description
  * # couch factory
  * Factory of the topAlbumsApp
@@ -16,13 +16,6 @@ angular.module('topAlbumsApp')
 				.success(function(data){
 					return data;
 				});
-		};
-		factory.getTitle = function(){
-			return 'Title';
-		};
-		factory.getAwesome = function(){
-			var awesomeThings = ['thing1','thing2','thing3'];
-			return awesomeThings;
 		};
 		return factory;
 	}

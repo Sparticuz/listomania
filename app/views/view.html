@@ -1,0 +1,11 @@
+<div class="row marketing">
+	<h1>{{ title }}</h1>
+	<ol>
+		<li data-ng-repeat="item in albums | orderBy:item.order">
+			<section class="album">
+				<span class="artist">{{ item.artist }}</span>
+				<span class="title">{{ item.album }}</span>
+			</section>
+		</li>
+	</ol>
+</div>
