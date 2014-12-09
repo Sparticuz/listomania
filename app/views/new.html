@@ -12,27 +12,47 @@
 		</div>
 
 		<!-- Text input-->
-		<div class="form-group" data-ng-repeat="album in albums">
-			<label class="control-label col-sm-2" for="album{{$index}}">Album</label>
-			<div class="col-sm-7">
-				<input id="album{{$index}}" name="album{{$index}}" type="text" placeholder="" class="form-control" required="" data-ng-model="album.album">
+		<div data-ng-repeat="album in albums" class="jumbotron">
+			<div class="col-sm-8">
+				<div class="form-group">
+					<label class="control-label col-sm-3" for="album{{$index}}">Album</label>
+					<div class="col-sm-9">
+						<input id="album{{$index}}" name="album{{$index}}" type="text" placeholder="" class="form-control" data-ng-model="album.album">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3" for="artist{{$index}}">Artist</label>
+					<div class="col-sm-9">
+						<input
+							id="artist{{$index}}"
+							name="artist{{$index}}"
+							type="text"
+							class="form-control"
+							data-ng-model="album.artist"
+							data-ng-change="getAlbumArt({{$index}})"
+							data-ng-model-options="{debounce: 750}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3" for="comment{{$index}}">Comment</label>
+					<div class="col-sm-9">
+						<input id="comment{{$index}}" name="comment{{$index}}" type="text" placeholder="" class="form-control" data-ng-model="album.comment">
+					</div>
+				</div>
 			</div>
-			<div class="col-sm-3">
-				<img src="{{ album.thumb }}" class="img-thumbnail">
-			</div>
+			<img src="{{album.cover}}" class="img-thumbnail">
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2">&nbsp;</label>
-			<div class="col-sm-2">
+			<div class="col-sm-12 text-center">
 				<button id="add-row" name="add-row" class="btn" data-ng-click="addRow()">Add Another Album</button>
 			</div>
 		</div>
 
 		<!-- Button (Double) -->
 		<div class="form-group">
-			<div class="col-sm-12">
-				<button type="submit" id="submit" class="btn btn-success">Submit</button>
+			<div class="col-sm-12 text-right">
+				<button type="submit" id="submit" class="btn btn-primary">Submit</button>
 			</div>
 		</div>
 
