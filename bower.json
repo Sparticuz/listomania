@@ -2,29 +2,25 @@
   "name": "listomania",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "^1.3.0",
-    "bootstrap-sass-official": "^3.2.0",
-    "angular-animate": "^1.3.0",
-    "angular-cookies": "^1.3.0",
-    "angular-resource": "^1.3.0",
-    "angular-route": "^1.3.0",
-    "angular-sanitize": "^1.3.0",
-    "angular-touch": "^1.3.0",
+    "angular": "latest",
+    "bootstrap-sass-official": "latest",
+    "angular-animate": "latest",
+    "angular-cookies": "latest",
+    "angular-resource": "latest",
+    "angular-route": "latest",
+    "angular-sanitize": "latest",
+    "angular-touch": "latest",
     "color-thief": "*",
-    "angular-ui-sortable": "*",
-    "oauth-js": "~0.3.0"
+    "angular-ui-sortable": "latest"
   },
   "devDependencies": {
-    "angular-mocks": "~1.3.0",
-    "angular-scenario": "~1.3.0"
+    "angular-mocks": "latest",
+    "angular-scenario": "latest"
   },
   "overrides": {
     "color-thief": {
       "main": "src/color-thief.js"
     }
   },
-  "appPath": "app",
-  "resolutions": {
-    "angular": "1.4.1"
-  }
+  "appPath": "app"
 }
