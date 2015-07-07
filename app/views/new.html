@@ -1,26 +1,23 @@
 <form class="form-horizontal" role="form" ng-submit="processList()">
 	<fieldset>
-		<!-- Form Name -->
-		<legend>New List</legend>
+		<legend><span data-ng-show="list.title">{{list.title}} by @{{list.alias}}</span></legend>
 
-		<!-- Text input-->
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="list-name">List Name</label>
-			<div class="col-sm-10">
-				<input id="list-name" name="list-name" type="text" placeholder="" class="form-control" required="" ng-model="list.title">
+			<div class="col-sm-7">
+				<input id="list-name" name="list-name" type="text" placeholder="List Name" class="form-control" required="" ng-model="list.title">
 			</div>
+			<a class="btn col-sm-2" data-ng-click="showAdvanced();">Advanced</a>
 		</div>
 
-		<!-- Text input-->
-		<div data-ng-repeat="album in list.albums" class="jumbotron">
-			<div class="col-sm-8">
-				<div class="form-group">
+		<div data-ui-sortable data-ng-model="list.albums">
+			<div data-ng-repeat="album in list.albums" class="jumbotron" id="album{{$index}}" style="background-color:{{album.primaryColor}};color:{{album.secondaryColor}}">
+				<div class="item-info">
 					<label class="control-label col-sm-3" for="album{{$index}}">Album</label>
 					<div class="col-sm-9">
 						<input id="album{{$index}}" name="album{{$index}}" type="text" placeholder="" class="form-control" data-ng-model="album.album">
 					</div>
-				</div>
-				<div class="form-group">
+
 					<label class="control-label col-sm-3" for="artist{{$index}}">Artist</label>
 					<div class="col-sm-9">
 						<input
@@ -32,15 +29,43 @@
 							data-ng-change="getAlbumArt({{$index}})"
 							data-ng-model-options="{debounce: 750}">
 					</div>
-				</div>
-				<div class="form-group">
+
 					<label class="control-label col-sm-3" for="comment{{$index}}">Comment</label>
 					<div class="col-sm-9">
 						<input id="comment{{$index}}" name="comment{{$index}}" type="text" placeholder="" class="form-control" data-ng-model="album.comment">
 					</div>
+					<div class="secondary-fields">
+						<label class="control-label col-sm-3" for="comment{{$index}}">Primary</label>
+						<div class="col-sm-9">
+							<input id="primary-color{{$index}}" name="primary-color" type="text" placeholder="Primary" class="form-control" data-ng-model="album.primaryColor">
+						</div>
+
+						<label class="control-label col-sm-3" for="comment{{$index}}">Secondary</label>
+						<div class="col-sm-9">
+							<input id="secondary-color{{$index}}" name="secondary-color" type="text" placeholder="Secondary" class="form-control" data-ng-model="album.secondaryColor">
+						</div>
+
+						<label class="control-label col-sm-3" for="comment{{$index}}">Rdio</label>
+						<div class="col-sm-9">
+							<input id="rdio{{$index}}" name="rdio{{$index}}" type="text" placeholder="Rdio" class="form-control" data-ng-model="album.rdio">
+						</div>
+
+						<label class="control-label col-sm-3" for="comment{{$index}}">Spotify</label>
+						<div class="col-sm-9">
+							<input id="spotify{{$index}}" name="spotify{{$index}}" type="text" placeholder="Spotify" class="form-control" data-ng-model="album.spotify">
+						</div>
+
+						<label class="control-label col-sm-3" for="comment{{$index}}">Image</label>
+						<div class="col-sm-9">
+							<input id="cover-url{{$index}}" name="cover{{$index}}" type="text" placeholder="Cover" class="form-control" data-ng-model="album.cover" data-ng-change="getColors({{$index}})">
+						</div>
+					</div>
+				</div>
+				<div class="item-image">
+					<img data-ng-src="{{album.cover}}" id="cover{{$index}}" class="img-thumbnail" style="height:145px;width:145px;">
+					<a data-ng-click="removeItem({{$index}})" class="btn">Remove</a>
 				</div>
 			</div>
-			<img data-ng-src="{{album.cover}}" class="img-thumbnail" style="height:132px;width:132px;">
 		</div>
 
 		<div class="form-group">
@@ -49,9 +74,34 @@
 			</div>
 		</div>
 
+		<div class="secondary-fields">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="list-id">List ID</label>
+				<div class="col-sm-10">
+					<input id="list-id" name="list-id" type="text" placeholder="List ID" class="form-control" required="" ng-model="list._id" value="{{list._id}}">
+				</div>
+				<label class="control-label col-sm-2" for="username">Username</label>
+				<div class="col-sm-10">
+					<input id="username" name="username" type="text" placeholder="User Name" class="form-control" required="" ng-model="list.alias" value="{{list.alias}}">
+				</div>
+				<label class="control-label col-sm-2" for="avatar">Avatar</label>
+				<div class="col-sm-10">
+					<input id="avatar" name="avatar" type="text" placeholder="Avatar" class="form-control" required="" ng-model="list.avatar" value="{{list.avatar}}">
+				</div>
+				<label class="control-label col-sm-2" for="date">Date</label>
+				<div class="col-sm-10">
+					<input id="date" name="date" type="text" placeholder="Date" class="form-control" required="" ng-model="list.date">
+				</div>
+				<label class="control-label col-sm-2" for="list-type">List Type</label>
+				<div class="col-sm-10">
+					<input id="list-type" name="list-type" type="text" placeholder="List Type" class="form-control" required="" ng-model="list.type">
+				</div>
+			</div>
+		</div>
+
 		<div class="form-group">
 			<div class="col-sm-12 text-right">
-				<button type="submit" id="submit" class="btn btn-primary">Submit</button>
+				<submit type="submit" id="submit" class="btn btn-primary" data-ng-click="processList()">Submit</submit>
 			</div>
 		</div>
 

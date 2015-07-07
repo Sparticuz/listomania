@@ -4,29 +4,17 @@
  * @ngdoc function
  * @name listomaniaApp.controller:NewCtrl
  * @description
- * # NewCtrl
+ * # EditCtrl
  * Controller of the listomaniaApp
  */
 angular.module('listomaniaApp')
-	.controller('NewCtrl', function ($scope,$location,ListFactory,LastFmFactory,RdioFactory,SpotifyFactory) {
-		//if the user isn't logged in, display the login
-		var a = new Date();
-		$scope.list = {
-			'alias': $scope.user.alias,
-			'avatar': $scope.user.avatar,
-			'date': JSON.stringify(a).replace(/"/g,''),
-			'type': 'albums'
-		};
+	.controller('EditCtrl', function ($scope,$location,ListFactory,LastFmFactory,RdioFactory,SpotifyFactory,$routeParams) {
+		ListFactory.getList($routeParams.id).then(function(data){
+			$scope.list = data.data;
+			console.log($scope.list);
+		});
 		$scope.showAdvanced = function(){
 			jQuery('.secondary-fields').toggle(1000,'swing');
-		};
-		$scope.list.albums = [{
-			'album':'Anomaly',
-			'artist':'Test Artist',
-			'cover':'http://placehold.it/145x145'
-		}];
-		$scope.removeItem = function(index){
-			$scope.list.albums.splice(index,1);
 		};
 		$scope.addRow = function(){
 			$scope.list.albums.push({
@@ -34,6 +22,9 @@ angular.module('listomaniaApp')
 				'artist':'',
 				'cover':'http://placehold.it/145x145'
 			});
+		};
+		$scope.removeItem = function(index){
+			$scope.list.albums.splice(index,1);
 		};
 		$scope.processList = function() {
 			angular.forEach($scope.list.albums, function(value,key){
