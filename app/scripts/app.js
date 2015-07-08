@@ -18,14 +18,16 @@ angular
 		'ngTouch',
 		'ui.sortable'
 	])
-	.config(function ($routeProvider, $locationProvider) {
+	.config(function ($routeProvider, $locationProvider, $httpProvider) {
 		$routeProvider
 			.when('/', {
 				templateUrl: 'views/main.html',
 				controller: 'MainCtrl'
 			})
 			.when('/login/:token', {
-				controller: 'LoginCtrl'
+				controller: 'LoginCtrl',
+				templateUrl: 'views/login.html'
+
 			})
 			.when('/:username', {
 				templateUrl: 'views/user.html',
@@ -50,6 +52,9 @@ angular
 			.otherwise({
 				redirectTo: '/'
 			});
+
+		$httpProvider.interceptors.push('AuthInterceptor');
+
 		//turn the following on for live
 		$locationProvider.html5Mode(true);
 	})

@@ -8,17 +8,21 @@
  * Controller of the listomaniaApp
  */
 angular.module('listomaniaApp')
-	.controller('MainCtrl', function ($rootScope,$location,Auth) {
+	.controller('MainCtrl', function ($rootScope,$location,Auth,AuthToken) {
 		var vm = this;
 
 		vm.loggedIn = Auth.isLoggedIn();
 
+		vm.token = AuthToken.getToken();
+
 		$rootScope.$on('$routeChangeStart', function(){
 			vm.loggedIn = Auth.isLoggedIn();
 
-			Auth.getUser().then(function(data){
-				vm.user = data.data;
-			});
+			if (vm.loggedIn) {
+				Auth.getUser().then(function(data){
+					vm.user = data.data;
+				});
+			}
 		});
 
 		//Login function
