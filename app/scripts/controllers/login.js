@@ -8,9 +8,8 @@
  * Controller of the listomaniaApp
  */
 angular.module('listomaniaApp')
-	.controller('LoginCtrl', function ($scope,AuthToken,$cookies,$routeParams) {
+	.controller('LoginCtrl', function (AuthToken,$location,$routeParams) {
 		//set token
 		AuthToken.setToken($routeParams.token);
-
-
+		$location.url('/');
 	});
