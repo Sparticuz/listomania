@@ -1,9 +1,7 @@
 {
-  "name": "listomania",
-  "version": "0.0.0",
   "dependencies": {
     "angular": "latest",
-    "bootstrap-sass-official": "latest",
+    "bootstrap-sass": "latest",
     "angular-animate": "latest",
     "angular-cookies": "latest",
     "angular-resource": "latest",
@@ -21,6 +19,5 @@
     "color-thief": {
       "main": "src/color-thief.js"
     }
-  },
-  "appPath": "app"
+  }
 }
