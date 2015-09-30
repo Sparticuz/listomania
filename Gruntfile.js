@@ -14,12 +14,14 @@ module.exports = function (grunt) {
 
   // Automatically load required Grunt tasks
   require('jit-grunt')(grunt, {
-    useminPrepare: 'grunt-usemin'
+    useminPrepare: 'grunt-usemin',
+    ngtemplates: 'grunt-angular-templates',
+    cdnify: 'grunt-google-cdn'
   });
 
   // Configurable paths for the application
   var appConfig = {
-    app: require('./bower.json').appPath || 'app',
+    app: 'app',
     dist: 'dist'
   };
 
@@ -80,8 +82,8 @@ module.exports = function (grunt) {
             return [
               connect.static('.tmp'),
               connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
+                '/node_modules',
+                connect.static('./node_modules')
               ),
               connect().use(
                 '/app/styles',
@@ -100,8 +102,8 @@ module.exports = function (grunt) {
               connect.static('.tmp'),
               connect.static('test'),
               connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
+                '/node_modules',
+                connect.static('./node_modules')
               ),
               connect.static(appConfig.app)
             ];
@@ -201,7 +203,7 @@ module.exports = function (grunt) {
       },
       sass: {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        ignorePath: /(\.\.\/){1,2}bower_components\//
+        ignorePath: /(\.\.\/){1,2}node_modules\//
       }
     },
 
@@ -214,7 +216,7 @@ module.exports = function (grunt) {
         imagesDir: '<%= yeoman.app %>/images',
         javascriptsDir: '<%= yeoman.app %>/scripts',
         fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: './bower_components',
+        importPath: './node_modules',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
@@ -403,7 +405,7 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: '.',
-          src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+          src: 'node_modules/bootstrap-sass/assets/fonts/bootstrap/*',
           dest: '<%= yeoman.dist %>'
         }]
       },
