@@ -19,6 +19,8 @@ module.exports = function (grunt) {
     cdnify: 'grunt-google-cdn'
   });
 
+  var serveStatic = require('serve-static');
+
   // Configurable paths for the application
   var appConfig = {
     app: 'app',
@@ -39,14 +41,14 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        tasks: ['newer:jshint:all', 'newer:jscs:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
-        tasks: ['newer:jshint:test', 'karma']
+        tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -80,16 +82,16 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
+              serveStatic('.tmp'),
               connect().use(
                 '/node_modules',
-                connect.static('./node_modules')
+                serveStatic('./node_modules')
               ),
               connect().use(
                 '/app/styles',
-                connect.static('./app/styles')
+                serveStatic('./app/styles')
               ),
-              connect.static(appConfig.app)
+              serveStatic(appConfig.app)
             ];
           }
         }
@@ -99,13 +101,13 @@ module.exports = function (grunt) {
           port: 9001,
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
-              connect.static('test'),
+              serveStatic('.tmp'),
+              serveStatic('test'),
               connect().use(
                 '/node_modules',
-                connect.static('./node_modules')
+                serveStatic('./node_modules')
               ),
-              connect.static(appConfig.app)
+              serveStatic(appConfig.app)
             ];
           }
         }
@@ -138,6 +140,23 @@ module.exports = function (grunt) {
       }
     },
 
+    // Make sure code styles are up to par
+    jscs: {
+      options: {
+        config: '.jscsrc',
+        verbose: true
+      },
+      all: {
+        src: [
+          'Gruntfile.js',
+          '<%= yeoman.app %>/scripts/{,*/}*.js'
+        ]
+      },
+      test: {
+        src: ['test/spec/{,*/}*.js']
+      }
+    },
+
     // Empties folders to start fresh
     clean: {
       dist: {
@@ -156,11 +175,8 @@ module.exports = function (grunt) {
     // Add vendor prefixed styles
     postcss: {
       options: {
-        map: true,
         processors: [
-          require('autoprefixer')({
-            browsers: ['last 1 version']
-          })
+          require('autoprefixer')({browsers: ['last 1 version']})
         ]
       },
       server: {
@@ -357,7 +373,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
-          module: 'listsApp',
+          module: 'listomaniaApp',
           htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/scripts.js'
         },
@@ -496,6 +512,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'newer:jshint',
+    'newer:jscs',
     'test',
     'build'
   ]);
