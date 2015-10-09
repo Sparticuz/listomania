@@ -27,7 +27,6 @@ angular
 			.when('/login/:token', {
 				controller: 'LoginCtrl',
 				templateUrl: 'views/login.html'
-
 			})
 			.when('/:username', {
 				templateUrl: 'views/user.html',

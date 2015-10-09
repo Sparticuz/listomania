@@ -39,7 +39,7 @@ angular.module('listomaniaApp')
 	// get the logged in user
 	authFactory.getUser = function() {
 		if (AuthToken.getToken()) {
-			return $http.get('http://127.0.0.1:8080/api/me', { cache: true });
+			return $http.get('https://listomaniapi.herokuapp.com/api/me', { cache: true });
 		}
 		else {
 			return $q.reject({ message: 'User has no token.' });

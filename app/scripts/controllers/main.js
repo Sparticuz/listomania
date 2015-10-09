@@ -6,13 +6,15 @@
  * @description
  * # MainCtrl
  * Controller of the listomaniaApp
+ * This Controller maintains all the variables accessible to the entire app.
+ * {{main}} are the variables
+ * {{main.user}} is the user struct
  */
 angular.module('listomaniaApp')
 	.controller('MainCtrl', function ($rootScope,$location,Auth,AuthToken) {
 		var vm = this;
 
 		vm.loggedIn = Auth.isLoggedIn();
-
 		vm.token = AuthToken.getToken();
 
 		$rootScope.$on('$routeChangeStart', function(){
@@ -28,10 +30,8 @@ angular.module('listomaniaApp')
 		//Login function
 		vm.doLogin = function() {
 			vm.processing = true;
-
 			vm.error = '';
-
-			Auth.login().success(function(data){
+			Auth.login().success(function(){
 				vm.processing = false;
 			});
 		};
@@ -39,7 +39,6 @@ angular.module('listomaniaApp')
 		vm.doLogout = function() {
 			Auth.logout();
 			vm.user = '';
-
 			$location.path('/');
 		};
 

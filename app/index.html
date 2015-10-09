@@ -35,10 +35,10 @@
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a data-ng-href="/{{user.alias}}">{{user.alias}}'s Lists</a></li>
-							<li><a data-ng-href="/{{user.alias}}/new">New List</a></li>
-							<li><a href="http://127.0.0.1:8080/api/authenticate/google" class="btn">Login</a></li>
-							<li><button data-ng-click="main.doLogout()" class="btn">Logout</button></li>
+							<li><a data-ng-href="/{{main.user.user}}" data-ng-show="main.user">{{main.user.user}}'s Lists</a></li>
+							<li><a data-ng-href="/{{main.user.user}}/new" data-ng-show="main.user">New List</a></li>
+							<li><a href="https://listomaniapi.herokuapp.com/api/authenticate/google" data-ng-hide="main.user" class="btn">Login</a></li>
+							<li><button data-ng-click="main.doLogout()" data-ng-show="main.user" class="btn">Logout</button></li>
 						</ul>
 					</div>
 			</nav>
@@ -48,15 +48,15 @@
 
 		</div>
 
-		<<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     	<script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       /*!function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
        (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
        r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
        }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
        ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
+       ga('send', 'pageview');*/
     	</script>
 
 		<!-- build:js(.) scripts/vendor.js -->
